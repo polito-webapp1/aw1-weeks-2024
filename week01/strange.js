@@ -6,8 +6,7 @@ console.log('NaN is a ' + type); // <your guess>
 console.log(`NaN === NaN? ${NaN === NaN}\n`); // <your guess>
 
 console.log(`NaN == NaN? ${NaN == NaN}`); // <your guess>
-console.log(`null == null? ${null == null}`); // <your guess>
-console.log(`undefined == undefined? ${undefined == undefined}\n`); // <your guess>
+console.log(`null == undefined? ${null == undefined}\n`); // <your guess>
 
 console.log(`null == false? ${null == false}`); // <your guess>
 console.log(`'' == false? ${'' == false}`); // <your guess>

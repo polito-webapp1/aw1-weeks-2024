@@ -2,7 +2,7 @@
 
 const names = `Luigi De Russis, Luca Mannella, 
 Fulvio Corno, Juan Pablo Saenz Moreno, 
-Enrico Masala, Antonio Servetti, Eros Fani`;
+Luca Pezzolla`;
 // esempio con ``: se le usate invece di '', potete avere strighe multi-linea: in quel caso, dovete gestire anche gli a capo, -- vedere sotto
 
 // togliamo gli a capo

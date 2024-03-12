@@ -15,7 +15,7 @@ A question, instead, is made of:
 - Question (text)
 - Questioner username (unique)
 - Date
-- List of answers
+- List of Answers
 
 Define a constructor function `Question` to represent a question. Implement the following methods to manipulate its answers: 
 

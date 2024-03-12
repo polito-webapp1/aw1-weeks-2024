@@ -1,0 +1,14 @@
+{
+  "name": "week02",
+  "version": "0.0.1",
+  "description": "Esercizio sui metodi funzionali",
+  "main": "exercise.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luigi De Russis",
+  "license": "ISC",
+  "dependencies": {
+    "dayjs": "^1.11.10"
+  }
+}

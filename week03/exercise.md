@@ -4,13 +4,12 @@ _Goal: interacting with a database while experimenting with async code_.
 
 Update the previous "Q&A" exercise to use a database.
 
-Manage a list of objects that include information about some questions and their answers. The stored information is similar to the previous exercise, with an _additional id_ for questions/answers and the user's email, i.e.,:
+Manage a list of objects that include information about some questions and their answers. The stored information is similar to the previous exercise, with an _additional id_ for questions/answers and the user's email as their username, i.e.,:
 
 | `Question` object |
 |----------|
 | id (int) |
 | question text (string) |
-| questioner name (string) |
 | questioner email (string) |
 | posting date (datejs) |
 
@@ -20,7 +19,6 @@ Note that the "list of answers (array)" is no longer needed, since answers will 
 |--------|
 | id (int) |
 | answer text (string) |
-| respondent name (string) |
 | respondent email (string) |
 | posting date (datejs) |
 | score (positive or negative integer) |
@@ -69,4 +67,4 @@ A new `QuestionList` object represents all the `Question`s, with the following m
 * `getQuestion(id)` // returns a Promise that resolves to a `Question` with the given id.
 * `afterDate(date)` // returns a Promise that resolves to an array with all the `Question`s after the given date.
 
-__Suggestion__: implement the methods in this order: `QuestionList.getQuestion`, `QuestionList.add`, `Question.getAnswers`, `Question.add`, `Question.getTop`, `QuestionList.afterDate`.
+__Suggestion__: implement the methods in this order: `QuestionList.getQuestion`, `QuestionList.addQuestion`, `Question.getAnswers`, `Question.addAnswer`, `Question.getTop`, `QuestionList.afterDate`.

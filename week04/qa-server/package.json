@@ -1,0 +1,16 @@
+{
+  "name": "qa-server",
+  "version": "1.0.0",
+  "description": "The `qa-server` is the server-side companion for HeapOverrun. It presents some APIs to perform some CRUD operations on questions and their answers.",
+  "main": "server.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dayjs": "^1.11.10",
+    "sqlite3": "^5.1.7"
+  }
+}

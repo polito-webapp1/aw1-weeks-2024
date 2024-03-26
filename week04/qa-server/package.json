@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "dayjs": "^1.11.10",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0",
     "sqlite3": "^5.1.7"
   }
 }

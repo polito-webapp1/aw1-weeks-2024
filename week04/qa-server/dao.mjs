@@ -12,7 +12,17 @@ const db = new sqlite.Database('questions.sqlite', (err) => {
 /** QUESTIONS **/
 // get all the questions
 export const listQuestions = () => {
-  // write something clever
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT question.*, user.email FROM question JOIN user ON question.authorId = user.id';
+    db.all(sql, [], (err, rows) => {
+      if (err)
+        reject(err);
+      else {
+        const questions = rows.map((q) => new Question(q.id, q.text, q.email, q.date));
+        resolve(questions);
+      }
+    });
+  });
 }
 
 // get a question given its id

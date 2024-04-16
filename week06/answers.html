@@ -21,7 +21,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 
     <!-- including JavaScript file-->
-    <script defer src="./app.js"></script>
+    <script defer src="./app.js"></script>  <!-- type="module" doesn't work from file:///-->
 
     <title>HeapOverrun</title>
   </head>
@@ -62,8 +62,7 @@
               </tr>
             </thead>
             <tbody id="answers-table">
-              <!--
-              <tr>
+              <!--  <tr>
                 <td>15/02/2024</td>
                 <td>Yes</td>
                 <td>luca.mannella@polito.it</td>
@@ -95,9 +94,8 @@
                   <button class="btn btn-primary"><i class='bi bi-pencil-square'></i></button>
                   <button class="btn btn-danger"><i class='bi bi-trash'></i></button>
                 </td>
-              </tr>
-              -->
-              <tr>
+              </tr>  -->
+              <tr id="new-answer-row">
                 <td><input class="form-control" type="date"></td>
                 <td><input class="form-control" type="text"></td>
                 <td><input class="form-control" type="text"></td>

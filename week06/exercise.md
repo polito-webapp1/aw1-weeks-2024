@@ -23,3 +23,4 @@ Create a function to delete a specific answer. As before, define an `EventListen
 ## Sort the answers by score
 
 Now, sort the table content by clicking on the "Score" header. For simplicity, a first click will sort the table from the highest to the lowest score value and a second click from the lowest to the highest.
+Even in this case, implement this job using an `EventListener`. You can associate the listener to the `<td>` of the interested row or you can assign it to a new inserted icon.

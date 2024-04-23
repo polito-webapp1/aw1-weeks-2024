@@ -20,16 +20,16 @@ function Question(id, text, email, date) {
   }
 
   this.getAnswers = () => {
-      return [...this.answers];
+    return [...this.answers];
   }
 
   this.init = () => {
-      this.answers = [
-          new Answer(1, 'Yes', 'Luca Mannella', '2024-02-28', -10),
-          new Answer(2, 'Not in a million year', 'Guido van Rossum', '2024-03-01', 5),
-          new Answer(3, 'No', 'Albert Einstein', '2024-03-11'),
-          new Answer(4, 'Then, I don\'t know', 'Luca Mannella', '2024-03-10')
-      ];
+    this.answers = [
+      new Answer(1, 'Yes', 'Luca Mannella', '2024-02-28', -10),
+      new Answer(2, 'Not in a million year', 'Guido van Rossum', '2024-03-01', 5),
+      new Answer(3, 'No', 'Albert Einstein', '2024-03-11'),
+      new Answer(4, 'Then, I don\'t know', 'Luca Mannella', '2024-03-10')
+    ];
   }
 }
 

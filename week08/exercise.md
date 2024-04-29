@@ -20,5 +20,3 @@ Include a form on the question page to add a new answer. The form will appear un
 
 For the moment, define the suitable components to show the form **without** handling the insertion of a new answer in the table.
 
-_Optionally_, make the entire form appear and disappear through a suitable button at the end of the table.
-

@@ -14,7 +14,7 @@ Now, sort the table content by clicking on the "Score" header. For simplicity, a
 
 ## Edit an answer
 
-Add a new "edit" button to the actions available for each answer row. When pressed, re-use the form on the question page to edit the chosen answer. Handle the state update accordingly.
+Make the "edit" button available for each answer row work. When pressed, re-use the form on the question page to edit the chosen answer. Handle the state update accordingly.
 
 What happens when you edit two answers, one after the other, without submitting the form? Why? How can you solve the issue?
 

@@ -26,12 +26,32 @@ function App() {
     });
   }
 
+  const addAnswer = (answer) => {
+    setAnswers(oldAnswers => {
+      const newId = Math.max(...oldAnswers.map(ans => ans.id)) + 1;
+      const newAnswer = new Answer(newId, answer.text, answer.email, answer.date, 0);
+      return [...oldAnswers, newAnswer];
+    });
+  }
+
+  const updateAnswer = (answer) => {
+    setAnswers(oldAnswers => {
+      return oldAnswers.map((ans) => {
+        if(ans.id === answer.id) {
+          return new Answer(answer.id, answer.text, answer.email, answer.date, ans.score);
+        }
+        else
+          return ans;
+      });
+    });
+  }
+
   return (
     <>
       <NavHeader questionNum={question.id} />
       <Container fluid className='mt-3'>
         <QuestionDescription question={question} />
-        <Answers answers={answers} voteUp={voteUp}></Answers>
+        <Answers answers={answers} voteUp={voteUp} addAnswer={addAnswer} updateAnswer={updateAnswer}></Answers>
       </Container>
     </>
   )

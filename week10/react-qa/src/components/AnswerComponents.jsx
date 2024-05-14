@@ -6,14 +6,6 @@ import { Row, Col, Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Answers(props) {
-  const [mode, setMode] = useState('view');
-  const [editableAnswer, setEditableAnswer] = useState();
-
-  const handleEdit = (answer) => {
-    setEditableAnswer(answer);
-    setMode('edit');
-  }
-
   return(
     <>
     <Row>
@@ -21,8 +13,8 @@ function Answers(props) {
     </Row>
     <Row>
       <Col lg={10} className="mx-auto">
-        <AnswerTable answers={props.answers} voteUp={props.voteUp} handleEdit={handleEdit}></AnswerTable>
-        <Link className="btn btn-primary" to="add">Add</Link>
+        <AnswerTable answers={props.answers} voteUp={props.voteUp}/>
+        <Link className="btn btn-primary mb-4" to="addAnswer">Add</Link>
       </Col>
     </Row>
     </>
@@ -86,7 +78,11 @@ function AnswerAction(props) {
       <Button variant='warning' onClick={
         () => props.voteUp(props.answer.id)
       }><i className='bi bi-arrow-up'></i></Button>
-      <Link className='btn btn-primary' to="edit"><i className='bi bi-pencil-square'></i></Link> 
+      <Link className='btn btn-primary' to={`editAnswer/${props.answer.id}`}
+        /* serialize() method was added to QAModels.js. location.state can not manage properly "complex" objects (i.e., objects inside objects). */
+        state={props.answer.serialize()}>
+          <i className='bi bi-pencil-square' />
+      </Link> 
       <Button variant='danger'><i className='bi bi-trash'></i></Button>
     </td>
   );

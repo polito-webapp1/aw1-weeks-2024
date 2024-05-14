@@ -51,7 +51,9 @@ function App() {
     });
   }
 
-  /** ------- Possibili route dell'applicazione (e possibili alternative) ------
+  /** --------------- Route dell'applicazione ------------------------
+         Possibili alternative sono indicate nelle righe successive
+      ----------------------------------------------------------------
     ----- Funzionalità non implementate -----
     Questions:     /
                    /questions
@@ -62,9 +64,11 @@ function App() {
     ----- Funzionalità implementate -----
     AnswerPage:    /questions/:questionId
                    /questions/:questionId/answers
-    AddAnswer:     /questions/:questionId/answers/add
+    AddAnswer:     /questions/:questionId/addAnswers
+                   /questions/:questionId/answers/add
                    /answers/new
-    EditAnswer:    /questions/:questionId/answers/:answerId/edit
+    EditAnswer:    /questions/:questionId/editAnswer/:answerId
+                   /questions/:questionId/answers/:answerId/edit
                    /answers/:answerId/edit
     -------
     404 not found: *
@@ -82,15 +86,15 @@ function App() {
       }>
         <Route path='/' element={<p className="lead">ToDo: implement here question list!</p>} />
         <Route path="/questions/:questionId" element={
-        <QuestionLayout question={question} answers={answers} voteUp={voteUp} addAnswer={addAnswer} updateAnswer={updateAnswer}/>
+          <QuestionLayout question={question} answers={answers} voteUp={voteUp} />
         }/>
-        <Route path="/questions/:questionId/add" element={
-        <AddEditQuestionLayout question={question} mode="add" addAnswer={addAnswer}/>
+        <Route path="/questions/:questionId/addAnswer" element={
+          <AddEditQuestionLayout question={question} mode="add" addAnswer={addAnswer} />
         }/>
-        <Route path="/questions/:questionId/edit" element={
-        <AddEditQuestionLayout question={question} mode="edit" updateAnswer={updateAnswer}/>
+        <Route path="/questions/:questionId/editAnswer/:answerId" element={
+          <AddEditQuestionLayout question={question} mode="edit" updateAnswer={updateAnswer} />
         }/>
-        <Route path="*" element={<NotFound/>}/>
+        <Route path="*" element={ <NotFound/> } />
       </Route>
     </Routes>
   );

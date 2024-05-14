@@ -10,7 +10,7 @@ Realize four different pages:
   2. **Single question and its answers**, i.e., the current content of the application.
     - Clicking an "add" button will open the page to add a new answer.
     - The "edit" button will bring to the same page but in editing mode.
-  3. Add/edit an answer, i.e., the form already in the app. _Submitting the form will bring you to the page described at point 3_.
+  3. **Add/edit an answer**, i.e., the form already in the app. _Submitting the form will bring you to the page described at point 3_.
   4. Properly **handle wrong URLs** by providing a _404 Not Found page_.
 
 ## Extra: managing different questions

@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Row, Col, Table, Button } from "react-bootstrap";
-import AnswerForm from './AnswerForm';
+
 import { useState } from 'react';
+import { Row, Col, Table, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Answers(props) {
   const [mode, setMode] = useState('view');
@@ -20,13 +22,7 @@ function Answers(props) {
     <Row>
       <Col lg={10} className="mx-auto">
         <AnswerTable answers={props.answers} voteUp={props.voteUp} handleEdit={handleEdit}></AnswerTable>
-        
-        {mode === 'view' && <Button variant='primary' onClick={() => {setMode('add');}}>Add</Button>}
-        
-        {mode === 'add' && <AnswerForm addAnswer={(answer) => {props.addAnswer(answer); setMode('view');}} cancel={()=> setMode('view')} mode={mode}/>}
-
-        {mode === 'edit' && <AnswerForm key={editableAnswer.id} answer={editableAnswer} updateAnswer={(answer) => {props.updateAnswer(answer); setMode('view');}} cancel={()=> setMode('view')} mode={mode}/>}
-
+        <Link className="btn btn-primary" to="add">Add</Link>
       </Col>
     </Row>
     </>
@@ -66,7 +62,10 @@ function AnswerTable (props) {
 
 function AnswerRow(props) {
   return(
-    <tr><AnswerData answer={props.answer}/><AnswerAction answer={props.answer} voteUp={props.voteUp} handleEdit={props.handleEdit}/></tr>
+    <tr>
+      <AnswerData answer={props.answer}/>
+      <AnswerAction answer={props.answer} voteUp={props.voteUp} handleEdit={props.handleEdit}/>
+    </tr>
   );
 }
 
@@ -87,9 +86,7 @@ function AnswerAction(props) {
       <Button variant='warning' onClick={
         () => props.voteUp(props.answer.id)
       }><i className='bi bi-arrow-up'></i></Button>
-      <Button variant='primary' className='mx-1' onClick={
-        () =>props.handleEdit(props.answer)
-      }><i className='bi bi-pencil-square'></i></Button> 
+      <Link className='btn btn-primary' to="edit"><i className='bi bi-pencil-square'></i></Link> 
       <Button variant='danger'><i className='bi bi-trash'></i></Button>
     </td>
   );

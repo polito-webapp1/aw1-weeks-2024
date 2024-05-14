@@ -1,10 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { useState } from 'react';
+import { Container } from 'react-bootstrap';
+
+import { Routes, Route, Outlet } from 'react-router-dom';
+
 import { Answer, Question } from "./QAModels.mjs";
 import NavHeader from "./components/NavHeader";
-import { Container } from 'react-bootstrap';
-import QuestionDescription from './components/QuestionDescription';
-import Answers from './components/AnswerComponents';
-import { useState } from 'react';
+import {QuestionLayout, AddEditQuestionLayout} from './components/QuestionComponents';
+import NotFound from './components/NotFoundComponent';
+
 
 const fakeQuestion = new Question(1, 'Is JavaScript better than Python?', 'luigi.derussis@polito.it', '2024-02-07');
 fakeQuestion.init();
@@ -46,15 +51,49 @@ function App() {
     });
   }
 
+  /** ------- Possibili route dell'applicazione (e possibili alternative) ------
+    ----- Funzionalità non implementate -----
+    Questions:     /
+                   /questions
+    AddQuestion:   /questions/add
+                   /addQuestions
+    EditQuestion:  /questions/:questionId/edit (???)
+        (questa è probabilmente una funzionalità che non vogliamo, o che vogliamo solo per admin)
+    ----- Funzionalità implementate -----
+    AnswerPage:    /questions/:questionId
+                   /questions/:questionId/answers
+    AddAnswer:     /questions/:questionId/answers/add
+                   /answers/new
+    EditAnswer:    /questions/:questionId/answers/:answerId/edit
+                   /answers/:answerId/edit
+    -------
+    404 not found: *
+    -------
+  **/
+
   return (
-    <>
-      <NavHeader questionNum={question.id} />
-      <Container fluid className='mt-3'>
-        <QuestionDescription question={question} />
-        <Answers answers={answers} voteUp={voteUp} addAnswer={addAnswer} updateAnswer={updateAnswer}></Answers>
-      </Container>
-    </>
-  )
+    <Routes>
+      <Route element={<>
+        <NavHeader questionNum={question.id} />
+        <Container fluid className='mt-3'>
+          <Outlet/>
+        </Container>
+        </>
+      }>
+        <Route path='/' element={<p className="lead">ToDo: implement here question list!</p>} />
+        <Route path="/questions/:questionId" element={
+        <QuestionLayout question={question} answers={answers} voteUp={voteUp} addAnswer={addAnswer} updateAnswer={updateAnswer}/>
+        }/>
+        <Route path="/questions/:questionId/add" element={
+        <AddEditQuestionLayout question={question} mode="add" addAnswer={addAnswer}/>
+        }/>
+        <Route path="/questions/:questionId/edit" element={
+        <AddEditQuestionLayout question={question} mode="edit" updateAnswer={updateAnswer}/>
+        }/>
+        <Route path="*" element={<NotFound/>}/>
+      </Route>
+    </Routes>
+  );
 
 }
 

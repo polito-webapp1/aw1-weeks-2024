@@ -46,7 +46,7 @@ function AnswerTable (props) {
         </tr>
       </thead>
       <tbody>
-        { sortedAnswers.map((ans) => <AnswerRow answer={ans} key={ans.id} voteUp={props.voteUp} handleEdit={props.handleEdit}/>) }
+        { sortedAnswers.map((ans) => <AnswerRow answer={ans} key={ans.id} voteUp={props.voteUp} />) }
       </tbody>
     </Table>
   );
@@ -56,7 +56,7 @@ function AnswerRow(props) {
   return(
     <tr>
       <AnswerData answer={props.answer}/>
-      <AnswerAction answer={props.answer} voteUp={props.voteUp} handleEdit={props.handleEdit}/>
+      <AnswerAction answer={props.answer} voteUp={props.voteUp} />
     </tr>
   );
 }

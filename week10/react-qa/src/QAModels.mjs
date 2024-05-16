@@ -10,7 +10,7 @@ function Answer(id, text, email, date, score=0) {
   /* Method to enable the proper serialization to string of the dayjs object. 
      Needed for the useLocation hook of react router when passing the answer to the edit form (AnswerComponents and AnswerForm). */
   this.serialize = () => {
-    return {id: this.id, questionId: this.questionId, text: this.text, email: this.email, date: this.date.format('YYYY-MM-DD'), score: this.score};
+    return {id: this.id, text: this.text, email: this.email, date: this.date.format('YYYY-MM-DD'), score: this.score};
   }
 }
 

@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-
 import { Link, useNavigate } from "react-router-dom";
 
 function AnswerForm(props) {
@@ -11,7 +10,7 @@ function AnswerForm(props) {
   
   const [text, setText] = useState(props.answer ? props.answer.text : '');
   const [email, setEmail] = useState(props.answer ? props.answer.email : '');
-  const [date, setDate] = useState(props.answer ? props.answer.date.format('YYYY-MM-DD') : dayjs().format('YYYY-MM-DD'));
+  const [date, setDate] = useState(props.answer ? props.answer.date : dayjs().format('YYYY-MM-DD'));
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -46,7 +45,7 @@ function AnswerForm(props) {
         <Form.Control type="date" value={date} onChange={(event) => setDate(event.target.value)}></Form.Control>
       </Form.Group>
       {props.mode==='add' && <Button variant='success' type='submit'>Add</Button>}
-      {props.mode==='edit' && <Button variant='warning' type='submit'>Update</Button>}
+      {props.mode==='edit' && <Button variant='primary' type='submit'>Update</Button>}
       <Link className='btn btn-danger mx-2 my-2' to={props.answer ? '../..':'..'} relative='path'>Cancel</Link>
     </Form>
   );

@@ -1,18 +1,14 @@
 import { Container, Navbar } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-function NavHeader (props) {
+function NavHeader () {
   return(
     <Navbar bg='primary' data-bs-theme='dark'>
       <Container fluid>
-        <Navbar.Brand>HeapOverrun - Question {props.questionNum}</Navbar.Brand>
+        <Link to='/' className='navbar-brand'>HeapOverrun</Link>
       </Container>
     </Navbar>
   );
 }
-
-NavHeader.propTypes = {
-  questionNum: PropTypes.number
-};
 
 export default NavHeader;

@@ -1,41 +1,57 @@
 /* eslint-disable react/prop-types */
 import { Col, Row } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 
 import Answers from './AnswerComponents';
 import AnswerForm from './AnswerForm';
 
 export function QuestionLayout(props) {
-  return(<>
-    <QuestionDescription question={props.question} />
-    <Answers answers={props.answers} voteUp={props.voteUp} />
-  </>);
+  // get the questionId from the URL to retrieve the right question and its answers
+  const params = useParams();
+  const question = props.questions[params.questionId-1];
+
+  return(
+    <>
+    {/* The check on "question" is needed to intercept errors due to invalid URLs (e.g., /questions/5 when you have two questions only) */}
+    {question ? <>
+      <QuestionDescription question={question} />
+      <Answers answers={props.answers} voteUp={props.voteUp}></Answers></> :
+      <p className='lead'>The selected question does not exist!</p>
+    } 
+    </>
+  );
 }
 
 export function AddEditQuestionLayout(props) {
-  const params = useParams();
-  // Beware: params are always strings!
-  const answerId = parseInt(params.answerId);
-
+  const { questionId } = useParams();
+  const question = props.questions[questionId-1];
+    
   let editableAnswer = undefined;
-  if(props.mode==='edit') {
-    const answers = props.question.getAnswers();
-    editableAnswer = answerId && answers.find(ans => ans.id == answerId);
+  if(props.mode === 'edit') {
+    const location = useLocation();
+    editableAnswer = location.state;
   }
   
-  return(<>
-    <QuestionDescription question={props.question} />
+  return(
+  <>
+    <QuestionDescription question={question} />
+    <Row>
+      <Col md={6} as='p'>
+        <strong>Answer:</strong>
+      </Col>
+    </Row>
     { 
     props.mode === 'edit' && !editableAnswer ?
-      /* If we are in edit mode but the editableAnswer is falsy, the ID passed as param is wrong! */
-      <>
-        <p>Answer not found!</p>
-        <Link className='btn btn-danger' to='../../' relative='path'>Go back</Link>
-      </>
-      /* When we are in edit mode, editableAnswer will be undefined and therefore falsy inside AnswerForm */
+      <Row>
+        <Col md={6}>
+          <p>Answer not found!</p>
+          <Link className='btn btn-danger' to='../../' relative='path'>Go back</Link>
+        </Col>
+      </Row>
       : <AnswerForm mode={props.mode} answer={editableAnswer} addAnswer={props.addAnswer} updateAnswer={props.updateAnswer}/>
     }
-  </>);
+  </>
+  );
 }
 
 function QuestionDescription (props) {

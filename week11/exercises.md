@@ -2,7 +2,7 @@
 
 _Goal: Create a simple (i.e., non React) client to consume one of the "HeapOverrun" API_.
 
-Create a `simple-application` project using HTML, plain JavaScript, and `fetch` to get the list of all questions from the API Server in Express developed last week. Set up CORS accordingly on the server.
+Create a `simple-application` project using HTML, plain JavaScript, and `fetch` to get the list of all questions from the API Server in Express developed in Week 04. Set up CORS accordingly on the server.
 
 
 # Exercise 13: React meets Express - part I

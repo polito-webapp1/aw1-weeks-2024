@@ -4,18 +4,44 @@ import { Link, useParams, useLocation } from 'react-router-dom';
 
 import Answers from './AnswerComponents';
 import AnswerForm from './AnswerForm';
+import { useState, useEffect } from 'react';
+import API from '../API.mjs';
+import { Answer } from '../QAModels.mjs';
 
 export function QuestionLayout(props) {
+  const [answers, setAnswers] = useState([]);
+
   // get the questionId from the URL to retrieve the right question and its answers
   const params = useParams();
   const question = props.questions[params.questionId-1];
+
+  useEffect(() => {
+    // recuperiamo tutte le risposte associate alla domanda specifica
+    const getAnswers = async () => {
+      const answers = await API.getAnswers(params.questionId);
+      setAnswers(answers);
+    }
+    getAnswers();
+  }, []); // TODO: aggiungere dipendenza da "answers" quando servirà
+
+  const voteUp = (answerId) => {
+    setAnswers(oldAnswers => {
+      return oldAnswers.map(ans => {
+        if(ans.id === answerId)
+          // ritorno una nuova, aggiornata, risposta
+          return new Answer(ans.id, ans.text, ans.email, ans.date, ans.score +1);
+        else
+          return ans;
+      });
+    });
+  }
 
   return(
     <>
     {/* The check on "question" is needed to intercept errors due to invalid URLs (e.g., /questions/5 when you have two questions only) */}
     {question ? <>
       <QuestionDescription question={question} />
-      <Answers answers={props.answers} voteUp={props.voteUp}></Answers></> :
+      <Answers answers={answers} voteUp={voteUp}></Answers></> :
       <p className='lead'>The selected question does not exist!</p>
     } 
     </>

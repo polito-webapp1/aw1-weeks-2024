@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import { Answer, Question } from "./QAModels.mjs";
@@ -7,26 +7,19 @@ import NavHeader from "./components/NavHeader";
 import {QuestionLayout, AddEditQuestionLayout} from './components/QuestionComponents';
 import NotFound from './components/NotFoundComponent';
 import { QuestionsLayout } from './components/QuestionListComponent';
-
-const fakeQuestions = [new Question(1, 'Is JavaScript better than Python?', 'luigi.derussis@polito.it', '2024-02-07')];
-fakeQuestions[0].init();
-const fakeAnswers = fakeQuestions[0].getAnswers();
+import API from './API.mjs';
 
 function App() {
-  const [questions, setQuestions] = useState(fakeQuestions);
-  const [answers, setAnswers] = useState(fakeAnswers);
+  const [questions, setQuestions] = useState([]);
 
-  const voteUp = (answerId) => {
-    setAnswers(oldAnswers => {
-      return oldAnswers.map(ans => {
-        if(ans.id === answerId)
-          // ritorno una nuova, aggiornata, risposta
-          return new Answer(ans.id, ans.text, ans.email, ans.date, ans.score +1);
-        else
-          return ans;
-      });
-    });
-  }
+  useEffect(() => {
+    // recuperiamo tutte le domande dal server
+    const getQuestions = async () => {
+      const questions = await API.getQuestions();
+      setQuestions(questions);
+    }
+    getQuestions();
+  }, []);
 
   const addAnswer = (answer) => {
     setAnswers(oldAnswers => {
@@ -61,7 +54,7 @@ function App() {
           <QuestionsLayout questions={questions} />
         } />
         <Route path="/questions/:questionId" element={
-          <QuestionLayout questions={questions} answers={answers} voteUp={voteUp} />
+          <QuestionLayout questions={questions} />
         }/>
         <Route path="/questions/:questionId/addAnswer" element={
           <AddEditQuestionLayout questions={questions} mode="add" addAnswer={addAnswer} />

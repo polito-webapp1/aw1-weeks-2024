@@ -1,0 +1,34 @@
+GET http://localhost:3001/api/questions
+
+###
+
+POST http://localhost:3001/api/questions/2/answers
+content-type: application/json
+
+{
+  "text": "Last year, it had about 2220 first-timers.",
+  "email": "luca.mannella@polito.it",
+  "score": 0,
+  "date": "2024-03-26"
+}
+
+###
+
+PUT http://localhost:3001/api/answers/5
+content-type: application/json
+
+{
+  "text": "Last year, it had about 220 first-timers.",
+  "email": "luca.mannella@polito.it",
+  "score": 0,
+  "date": "2024-03-26"
+}
+
+###
+
+POST http://localhost:3001/api/answers/2/vote
+content-type: application/json
+
+{
+  "vote": "upvote"
+}

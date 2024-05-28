@@ -68,7 +68,8 @@ app.post('/api/questions/:id/answers', [
 
   try {
     const id = await addAnswer(newAnswer, questionId);
-    res.status(201).location(id).end();
+    setTimeout(() => { res.status(201).location(id).end();}, 5000);
+    //res.status(201).location(id).end();
   } catch(e) {
     console.error(`ERROR: ${e.message}`);
     res.status(503).json({error: 'Impossible to create the answer.'});
@@ -111,7 +112,7 @@ app.post('/api/answers/:id/vote', [
   try {
     const num = await voteAnswer(answerId, req.body.vote);
     if(num === 1)
-      res.status(204).end();
+      setTimeout(() => { res.status(204).end();}, 5000);
     else
       throw new Error(`Error in casting a vote for answer #${answerId}`);
   } catch(e) {

@@ -15,25 +15,34 @@ export function QuestionLayout(props) {
   const params = useParams();
   const question = props.questions[params.questionId-1];
 
+  const getAnswers = async () => {
+    const answers = await API.getAnswers(params.questionId);
+    setAnswers(answers);
+  }
+
   useEffect(() => {
     // recuperiamo tutte le risposte associate alla domanda specifica
-    const getAnswers = async () => {
-      const answers = await API.getAnswers(params.questionId);
-      setAnswers(answers);
-    }
     getAnswers();
-  }, []); // TODO: aggiungere dipendenza da "answers" quando servirà
+  }, []);
 
   const voteUp = (answerId) => {
+    // aggiornamento temporaneo
     setAnswers(oldAnswers => {
       return oldAnswers.map(ans => {
-        if(ans.id === answerId)
+        if(ans.id === answerId) {
           // ritorno una nuova, aggiornata, risposta
-          return new Answer(ans.id, ans.text, ans.email, ans.date, ans.score +1);
+          const answer = new Answer(ans.id, ans.text, ans.email, ans.date, ans.score +1);
+          answer.voted = true;
+          return answer;
+        }
         else
           return ans;
       });
     });
+
+    API.vote(answerId)
+      .then(() => getAnswers())
+      .catch(err => console.log(err));
   }
 
   return(
@@ -59,7 +68,7 @@ export function AddEditQuestionLayout(props) {
   }
   
   return(
-  <>
+  <> { question ? <>
     <QuestionDescription question={question} />
     <Row>
       <Col md={6} as='p'>
@@ -71,11 +80,11 @@ export function AddEditQuestionLayout(props) {
       <Row>
         <Col md={6}>
           <p>Answer not found!</p>
-          <Link className='btn btn-danger' to='../../' relative='path'>Go back</Link>
+          <Link className='btn btn-danger' to={`/questions/${question.id}`}>Go back</Link>
         </Col>
       </Row>
       : <AnswerForm mode={props.mode} answer={editableAnswer} addAnswer={props.addAnswer} updateAnswer={props.updateAnswer}/>
-    }
+    }</>: "Question doesn't exist" }
   </>
   );
 }

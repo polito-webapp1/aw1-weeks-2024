@@ -2,11 +2,15 @@
 import dayjs from 'dayjs';
 
 import { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { Link, useNavigate } from "react-router-dom";
+import { Form, Button, Alert } from 'react-bootstrap';
+import { Link, useNavigate, useParams } from "react-router-dom";
+import API from '../API.mjs';
 
 function AnswerForm(props) {
+  const {questionId} = useParams();
   const navigate = useNavigate();
+
+  const [waiting, setWaiting] = useState(false);
   
   const [text, setText] = useState(props.answer ? props.answer.text : '');
   const [email, setEmail] = useState(props.answer ? props.answer.email : '');
@@ -17,20 +21,25 @@ function AnswerForm(props) {
     // creare un nuova risposta
     const answer = {text, email, date};
 
+    setWaiting(true);
     // TODO: aggiungere validazione
 
     if(props.mode === 'edit') {
       // aggiornare la risposta in questione
-      props.updateAnswer({id: props.answer.id, ...answer});
-      navigate('../..', {relative: "path"});
+      API.updateAnswer({id: props.answer.id, ...answer, score: props.answer.score})
+        .then(()=> navigate(`/questions/${questionId}`));
+        //.catch() gestire eventuali errori
     } else {
       // aggiungere la risposta allo stato
-      props.addAnswer(answer);
-      navigate('..', {relative: "path"});
+      API.addAnswer(answer, questionId)
+        .then(()=> navigate(`/questions/${questionId}`));
+        //.catch() gestire eventuali errori
     }
   }
 
   return(
+    <>
+    {waiting && <Alert variant='secondary'>Please, wait for the server's answer...</Alert>}
     <Form onSubmit={handleSubmit}>
       <Form.Group className='mb-3'>
         <Form.Label>Text</Form.Label>
@@ -44,10 +53,11 @@ function AnswerForm(props) {
         <Form.Label>Date</Form.Label>
         <Form.Control type="date" value={date} onChange={(event) => setDate(event.target.value)}></Form.Control>
       </Form.Group>
-      {props.mode==='add' && <Button variant='success' type='submit'>Add</Button>}
-      {props.mode==='edit' && <Button variant='primary' type='submit'>Update</Button>}
+      {props.mode==='add' && <Button variant='success' type='submit' disabled={waiting}>Add</Button>}
+      {props.mode==='edit' && <Button variant='primary' type='submit' disabled={waiting}>Update</Button>}
       <Link className='btn btn-danger mx-2 my-2' to={props.answer ? '../..':'..'} relative='path'>Cancel</Link>
     </Form>
+    </>
   );
 }
 

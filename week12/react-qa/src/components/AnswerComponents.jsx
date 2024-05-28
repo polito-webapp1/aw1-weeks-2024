@@ -77,7 +77,7 @@ function AnswerAction(props) {
     <td>
       <Button variant='warning' onClick={
         () => props.voteUp(props.answer.id)
-      }><i className='bi bi-arrow-up'></i></Button>
+      } disabled={props.answer.voted}><i className='bi bi-arrow-up'></i></Button>
       <Link className='btn btn-primary mx-1' to={`editAnswer/${props.answer.id}`} state={props.answer.serialize()}>
         <i className='bi bi-pencil-square' />
       </Link> 

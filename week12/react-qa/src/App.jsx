@@ -21,26 +21,6 @@ function App() {
     getQuestions();
   }, []);
 
-  const addAnswer = (answer) => {
-    setAnswers(oldAnswers => {
-      const newId = Math.max(...oldAnswers.map(ans => ans.id)) + 1;
-      const newAnswer = new Answer(newId, answer.text, answer.email, answer.date, 0);
-      return [...oldAnswers, newAnswer];
-    });
-  }
-
-  const updateAnswer = (answer) => {
-    setAnswers(oldAnswers => {
-      return oldAnswers.map((ans) => {
-        if(ans.id === answer.id) {
-          return new Answer(answer.id, answer.text, answer.email, answer.date, ans.score);
-        }
-        else
-          return ans;
-      });
-    });
-  }
-
   return (
     <Routes>
       <Route element={<>
@@ -57,10 +37,10 @@ function App() {
           <QuestionLayout questions={questions} />
         }/>
         <Route path="/questions/:questionId/addAnswer" element={
-          <AddEditQuestionLayout questions={questions} mode="add" addAnswer={addAnswer} />
+          <AddEditQuestionLayout questions={questions} mode="add" />
         }/>
         <Route path="/questions/:questionId/editAnswer/:answerId" element={
-          <AddEditQuestionLayout questions={questions} mode="edit" updateAnswer={updateAnswer} />
+          <AddEditQuestionLayout questions={questions} mode="edit" />
         }/>
         <Route path="*" element={ <NotFound/> } />
       </Route>

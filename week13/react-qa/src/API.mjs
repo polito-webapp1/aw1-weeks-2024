@@ -1,4 +1,4 @@
-import {Question, Answer} from './QAModels.mjs';
+import { Question, Answer } from './QAModels.mjs';
 
 const SERVER_URL = 'http://localhost:3001';
 

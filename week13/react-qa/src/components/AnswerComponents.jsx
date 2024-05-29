@@ -2,8 +2,8 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import { useState } from 'react';
-import { Row, Col, Table, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Row, Col, Table, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function Answers(props) {
   return(

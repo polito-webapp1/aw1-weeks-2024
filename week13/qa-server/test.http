@@ -1,20 +1,17 @@
+# Get all the questions.
 GET http://localhost:3001/api/questions
-
 ###
 
+# Get a specific question.
+GET http://localhost:3001/api/questions/1
+###
+
+# Get the list of answers of a specific question.
+GET http://localhost:3001/api/questions/2/answers
+###
+
+# Insert a new answer.
 POST http://localhost:3001/api/questions/2/answers
-content-type: application/json
-
-{
-  "text": "Last year, it had about 2220 first-timers.",
-  "email": "luca.mannella@polito.it",
-  "score": 0,
-  "date": "2024-03-26"
-}
-
-###
-
-PUT http://localhost:3001/api/answers/5
 content-type: application/json
 
 {
@@ -23,12 +20,55 @@ content-type: application/json
   "score": 0,
   "date": "2024-03-26"
 }
-
 ###
 
+# Upvote a specific answer.
 POST http://localhost:3001/api/answers/2/vote
-content-type: application/json
 
+content-type: application/json
 {
   "vote": "upvote"
 }
+###
+
+# Insert another new answer.
+POST http://localhost:3001/api/questions/2/answers
+content-type: application/json
+
+{
+  "text": "I don't know, I was not there!",
+  "email": "guido.vanrossum@python.org",
+  "score": 0,
+  "date": "2024-05-31"
+}
+###
+
+# Update an answer.
+PUT http://localhost:3001/api/answers/5
+
+content-type: application/json
+{
+  "text": "WA1 has much more students than AW1!",
+  "email": "luca.mannella@polito.it",
+  "score": 0,
+  "date": "2024-05-31"
+}
+###
+
+# Login
+POST http://localhost:3001/api/sessions
+content-type: application/json
+
+{
+  "username": "guido.vanrossum@python.org",
+  "password": "testtest"
+}
+###
+
+## Checking if user is still logged-in.
+GET http://localhost:3001/api/sessions/current
+###
+
+## Execute Log Out.
+DELETE http://localhost:3001/api/sessions/current
+###

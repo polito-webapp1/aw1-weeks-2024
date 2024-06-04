@@ -50,7 +50,8 @@ export function QuestionLayout(props) {
     {/* The check on "question" is needed to intercept errors due to invalid URLs (e.g., /questions/5 when you have two questions only) */}
     {question ? <>
       <QuestionDescription question={question} />
-      <Answers answers={answers} voteUp={voteUp}></Answers></> :
+      {/* UPDATED */}
+      <Answers answers={answers} voteUp={voteUp} loggedIn={props.loggedIn} user={props.user}></Answers></> :
       <p className='lead'>The selected question does not exist!</p>
     } 
     </>
@@ -83,7 +84,7 @@ export function AddEditQuestionLayout(props) {
           <Link className='btn btn-danger' to={`/questions/${question.id}`}>Go back</Link>
         </Col>
       </Row>
-      : <AnswerForm mode={props.mode} answer={editableAnswer} addAnswer={props.addAnswer} updateAnswer={props.updateAnswer}/>
+      : <AnswerForm mode={props.mode} answer={editableAnswer} addAnswer={props.addAnswer} updateAnswer={props.updateAnswer} user={props.user}/>
     }</>: "Question doesn't exist" }
   </>
   );

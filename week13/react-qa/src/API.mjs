@@ -1,4 +1,4 @@
-import { Question, Answer } from './QAModels.mjs';
+import {Question, Answer} from './QAModels.mjs';
 
 const SERVER_URL = 'http://localhost:3001';
 
@@ -22,11 +22,13 @@ const getAnswers = async (questionId) => {
     throw new Error('Internal server error');
 }
 
+// UPDATED
 const vote = async (answerId) => {
   const response = await fetch(`${SERVER_URL}/api/answers/${answerId}/vote`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'}, 
-    body: JSON.stringify({vote: 'upvote'})
+    body: JSON.stringify({vote: 'upvote'}),
+    credentials: 'include'
   });
 
   if(!response.ok) {
@@ -37,11 +39,13 @@ const vote = async (answerId) => {
   // TODO: migliorare gestione errori/risposte 
 }
 
+// UPDATED
 const addAnswer = async (answer, questionId) => {
   const response = await fetch(`${SERVER_URL}/api/questions/${questionId}/answers`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'}, 
-    body: JSON.stringify({text: answer.text, email: answer.email, score: 0, date: answer.date})
+    body: JSON.stringify({text: answer.text, email: answer.email, score: 0, date: answer.date}),
+    credentials: 'include'
   });
 
   if(!response.ok) {
@@ -52,11 +56,13 @@ const addAnswer = async (answer, questionId) => {
   // TODO: migliorare gestione errori/risposte 
 }
 
+// UPDATED
 const updateAnswer = async (answer) => {
   const response = await fetch(`${SERVER_URL}/api/answers/${answer.id}`, {
     method: 'PUT',
     headers: {'Content-Type': 'application/json'}, 
-    body: JSON.stringify({text: answer.text, email: answer.email, score: answer.score, date: answer.date})
+    body: JSON.stringify({text: answer.text, email: answer.email, score: answer.score, date: answer.date}),
+    credentials: 'include'
   });
 
   if(!response.ok) {
@@ -67,5 +73,48 @@ const updateAnswer = async (answer) => {
   // TODO: migliorare gestione errori/risposte 
 }
 
-const API = {getAnswers, getQuestions, vote, addAnswer, updateAnswer};
+// NEW
+const logIn = async (credentials) => {
+  const response = await fetch(SERVER_URL + '/api/sessions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(credentials),
+  });
+  if(response.ok) {
+    const user = await response.json();
+    return user;
+  }
+  else {
+    const errDetails = await response.text();
+    throw errDetails;
+  }
+};
+
+// NEW
+const getUserInfo = async () => {
+  const response = await fetch(SERVER_URL + '/api/sessions/current', {
+    credentials: 'include',
+  });
+  const user = await response.json();
+  if (response.ok) {
+    return user;
+  } else {
+    throw user;  // an object with the error coming from the server
+  }
+};
+
+// NEW
+const logOut = async() => {
+  const response = await fetch(SERVER_URL + '/api/sessions/current', {
+    method: 'DELETE',
+    credentials: 'include'
+  });
+  if (response.ok)
+    return null;
+}
+
+const API = {getAnswers, getQuestions, vote, addAnswer, updateAnswer, logIn, logOut, getUserInfo};
 export default API;

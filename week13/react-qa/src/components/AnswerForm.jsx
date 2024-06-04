@@ -13,7 +13,7 @@ function AnswerForm(props) {
   const [waiting, setWaiting] = useState(false);
   
   const [text, setText] = useState(props.answer ? props.answer.text : '');
-  const [email, setEmail] = useState(props.answer ? props.answer.email : '');
+  const [email, setEmail] = useState(props.answer ? props.answer.email : props.user.username);
   const [date, setDate] = useState(props.answer ? props.answer.date : dayjs().format('YYYY-MM-DD'));
 
   const handleSubmit = (event) => {
@@ -47,7 +47,7 @@ function AnswerForm(props) {
       </Form.Group>
       <Form.Group className='mb-3'>
         <Form.Label>email</Form.Label>
-        <Form.Control type="email" required={true} value={email} onChange={(event) => setEmail(event.target.value)}></Form.Control>
+        <Form.Control type="email" required={true} value={email} disabled={true}></Form.Control>
       </Form.Group>
       <Form.Group className='mb-3'>
         <Form.Label>Date</Form.Label>

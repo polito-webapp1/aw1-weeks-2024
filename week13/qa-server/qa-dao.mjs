@@ -1,13 +1,9 @@
 /* Data Access Object (DAO) module for accessing Q&A */
 /* Initial version taken from exercise 4 (week 03) */
 
-import sqlite from 'sqlite3';
 import { Question, Answer } from './QAModels.mjs';
-
-// open the database
-const db = new sqlite.Database('questions.sqlite', (err) => {
-  if (err) throw err;
-});
+// UPDATED
+import { db } from './db.mjs';
 
 /** QUESTIONS **/
 // get all the questions
